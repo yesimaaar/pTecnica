@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArraCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DateTime;
+use InvalidArgumentException;
 
 #[ORM\Entity]
 class Review
@@ -11,7 +14,7 @@ class Review
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;    
+    private $id;
     #[ORM\Column(type: "datetime")]
     private $created_at;
     #[ORM\Column(type: "integer")]
@@ -21,7 +24,7 @@ class Review
     #[ORM\ManyToOne(targetEntity: "Book", inversedBy: "reviews")]
     private Book $book;
 
-    public function __construct( $book, $rating, $comment)
+    public function __construct(Book $book, int $rating, string $comment)
     {
         if ($rating < 1 || $rating > 5) {
             throw new InvalidArgumentException("La calificación debe estar entre 1 y 5.");
@@ -30,9 +33,9 @@ class Review
         if (empty($comment)) {
             throw new InvalidArgumentException("El comentario no puede estar vacío.");
         }
-        
+
         $this->book = $book;
-        $this->created_at = new DateTime().format('Y-m-d H:i:s').now();
+        $this->created_at = new DateTime();
         $this->rating = $rating;
         $this->comment = $comment;
     }
@@ -47,7 +50,7 @@ class Review
         return $this->book->getId();
     }
 
-    public function getcreated_at()
+    public function getCreatedAt()
     {
         return $this->created_at;
     }

@@ -52,4 +52,24 @@ class Book
     {
         $this->reviews[] = $review;
     }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    public function setYear($year)
+    {
+        $this->year = $year;
+    }
 }
