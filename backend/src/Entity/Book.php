@@ -1,4 +1,6 @@
 <?php
+namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArraCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,6 +10,7 @@ class Book
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
     #[ORM\Column(type: "string")]
     private $title;
@@ -18,9 +21,8 @@ class Book
     #[ORM\OneToMany(targetEntity: "Review", mappedBy: "book")]
     private $reviews = [];
 
-    public function __construct($id, $title, $author, $year)
+    public function __construct( $title, $author, $year)
     {
-        $this->id = $id;
         $this->title = $title;
         $this->author = $author;
         $this->year = $year;
